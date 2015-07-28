@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="../../node_modules/angular/angular.js"></script>
+    <script src="gameplay.js"></script>
+</head>
+<body ng-app="Leela">
+<div ng-controller="GameplayController">
+    <pre>{{ current_position }}</pre>
+    <input type="number" ng-model="steps"/>
+    <input type="button" ng-click="moveChip(steps)"/>
+</div>
+</body>
+</html>

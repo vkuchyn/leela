@@ -17,6 +17,17 @@ describe('GameplayController', function(){
             expect($scope.steps).toBeNull();
         });
 
+        it('should thow error if step out of range [1-6]', function(){
+            var $scope = {};
+            var controller = $controller('GameplayController', {$scope: $scope});
+            expect(function() { $scope.moveChip(0) } ).toThrow();
+            expect(function() { $scope.moveChip(7) } ).toThrow();
+        });
+
+        it('should born only after 6', function() {
+
+        })
+
     })
 
     describe('$scope.showHistory', function(){

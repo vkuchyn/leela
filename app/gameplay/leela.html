@@ -8,8 +8,15 @@
 <body ng-app="Leela">
 <div ng-controller="GameplayController">
     <pre>{{ current_position }}</pre>
-    <input type="number" ng-model="steps"/>
-    <input type="button" ng-click="moveChip(steps)"/>
+    <button ng-click="moveChip(1)">1</button>
+    <button ng-click="moveChip(2)">2</button>
+    <button ng-click="moveChip(3)">3</button>
+    <button ng-click="moveChip(4)">4</button>
+    <button ng-click="moveChip(5)">5</button>
+    <button ng-click="moveChip(6)">6</button>
+</div>
+<div ng-controller="HistoryController">
+    <pre>{{ showHistory() }}</pre>
 </div>
 </body>
 </html>

@@ -11,10 +11,10 @@ describe('GameplayController', function(){
         it('moves chip from the initial state to new position', function () {
             var $scope = {};
             var controller = $controller('GameplayController', {$scope: $scope});
-            $scope.steps = 3;
+            $scope.current_position = 6;
+            $scope.born = true;
             $scope.moveChip(4);
             expect($scope.current_position).toBe(10);
-            expect($scope.steps).toBeNull();
         });
 
         it('should thow error if step out of range [1-6]', function(){
@@ -25,7 +25,19 @@ describe('GameplayController', function(){
         });
 
         it('should born only after 6', function() {
+            var $scope = {};
+            var controller = $controller('GameplayController', {$scope: $scope});
 
+            $scope.moveChip(1);
+            $scope.moveChip(2);
+            $scope.moveChip(3);
+            $scope.moveChip(4);
+            $scope.moveChip(5);
+
+            expect($scope.current_position).toBe(68);
+
+            $scope.moveChip(6);
+            expect($scope.current_position).toBe(6);
         })
 
     })
@@ -34,6 +46,9 @@ describe('GameplayController', function(){
         it('store previous position after move in history', function(){
             var $gamePlayScope = {};
             var gameplayController = $controller('GameplayController', {$scope: $gamePlayScope});
+            $gamePlayScope.current_position = 1;
+            $gamePlayScope.born = true;
+            $gamePlayScope.moveChip(5);
             $gamePlayScope.moveChip(5);
 
             var $historyScope = {};

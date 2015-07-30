@@ -11,7 +11,7 @@ app.controller('GameplayController', function ($scope, History, Board) {
     $scope.born = false;
     $scope.deposit = 0;
     var boardPromice = Board.getBoard();
-    boardPromice.then(function(result) {
+    boardPromice.then(function (result) {
         $scope.board = result;
     })
     $scope.moveChip = function (steps) {
@@ -26,7 +26,11 @@ app.controller('GameplayController', function ($scope, History, Board) {
             }
         } else {
             if (steps == 6) {
-                $scope.deposit += 6;
+                if ($scope.deposit == 12) {
+                    $scope.deposit = 0;
+                } else {
+                    $scope.deposit += 6;
+                }
             } else {
                 steps += $scope.deposit;
                 $scope.deposit = 0;

@@ -52,10 +52,24 @@ describe('GameplayController', function () {
             $scope.born = true;
             $scope.moveChip(6);
             expect($scope.current_position).toBe(6);
+            expect($scope.deposit).toBe(6);
             $scope.moveChip(6);
             expect($scope.current_position).toBe(6);
+            expect($scope.deposit).toBe(12);
             $scope.moveChip(1);
             expect($scope.current_position).toBe(19);
+            expect($scope.deposit).toBe(0);
+        })
+
+        it('should reset deposit if 6x3', function () {
+            var $scope = {};
+            var controller = $controller('GameplayController', {$scope: $scope});
+            $scope.current_position = 6;
+            $scope.born = true;
+            $scope.moveChip(6);
+            $scope.moveChip(6);
+            $scope.moveChip(6);
+            expect($scope.deposit).toBe(0);
         })
 
     })

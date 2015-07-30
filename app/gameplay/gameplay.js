@@ -6,10 +6,13 @@ var app = angular.module('leela.gameplay', ['ngRoute', 'leela.board'])
         });
     }]);
 
-app.controller('GameplayController', function ($scope, History, boardService) {
+app.controller('GameplayController', function ($scope, History, Board) {
     $scope.current_position = 68;
     $scope.born = false;
-    $scope.title = boardService.title;
+    var boardPromice = Board.getBoard();
+    boardPromice.then(function(result) {
+        $scope.board = result;
+    })
     $scope.moveChip = function (steps) {
         if (steps <= 0 || steps > 6) {
             throw new Error("Step must be between 1 and 6");

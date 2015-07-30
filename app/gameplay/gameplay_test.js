@@ -89,5 +89,18 @@ describe('GameplayController', function () {
 
             expect($historyScope.showHistory()).toEqual([6, 11]);
         });
+
+        it('save to history target cell when moving by arrow', function () {
+            $scope.board.arrows = [{"from": 10, "to": 23}]
+            var gamePlayScope = $scope;
+            gamePlayScope.current_position = 6;
+            gamePlayScope.moveChip(4);
+            gamePlayScope.moveChip(1);
+
+            var $historyScope = {};
+            var historyController = $controller('HistoryController', {$scope: $historyScope});
+
+            expect($historyScope.showHistory()).toEqual([10, 24]);
+        });
     })
 });

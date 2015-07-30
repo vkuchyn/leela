@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <script src="../../node_modules/angular/angular.js"></script>
+    <script src="../../node_modules/angular-route/angular-route.js"></script>
+    <script src="../commons/game-board-service.js"></script>
     <script src="gameplay.js"></script>
+
 </head>
-<body ng-app="Leela">
+<body ng-app="leela.gameplay">
 <div ng-controller="GameplayController">
     <pre>{{ current_position }}</pre>
     <button ng-click="moveChip(1)">1</button>
@@ -14,6 +17,7 @@
     <button ng-click="moveChip(4)">4</button>
     <button ng-click="moveChip(5)">5</button>
     <button ng-click="moveChip(6)">6</button>
+    <pre> {{title}}</pre>
 </div>
 <div ng-controller="HistoryController">
     <pre>{{ showHistory() }}</pre>

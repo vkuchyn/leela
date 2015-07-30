@@ -1,5 +1,6 @@
 describe('GameplayController', function(){
-    beforeEach(module('Leela'));
+    beforeEach(module('leela.gameplay'));
+    beforeEach(module('leela.board'));
 
     var $controller;
 

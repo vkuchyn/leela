@@ -9,6 +9,7 @@ var app = angular.module('leela.gameplay', ['ngRoute', 'leela.board'])
 app.controller('GameplayController', function ($scope, History, Board) {
     $scope.current_position = 68;
     $scope.born = false;
+    $scope.deposit = 0;
     var boardPromice = Board.getBoard();
     boardPromice.then(function(result) {
         $scope.board = result;
@@ -24,7 +25,13 @@ app.controller('GameplayController', function ($scope, History, Board) {
                 $scope.current_position = moveChipAndSaveHistory(6, 0);
             }
         } else {
-            $scope.current_position = moveChipAndSaveHistory(steps, $scope.current_position);
+            if (steps == 6) {
+                $scope.deposit += 6;
+            } else {
+                steps += $scope.deposit;
+                $scope.deposit = 0;
+                $scope.current_position = moveChipAndSaveHistory(steps, $scope.current_position);
+            }
         }
     };
 

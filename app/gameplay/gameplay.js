@@ -39,14 +39,29 @@ app.controller('GameplayController', function ($scope, History, Board) {
         }
     };
 
+    var checkArrow = function (position) {
+        var arrows = $scope.board.arrows;
+        for (var i in arrows) {
+            if (arrows[i].from == position) {
+                return arrows[i].to;
+            }
+        }
+        return position;
+    };
+
     moveChipAndSaveHistory = function (steps, current_position) {
         var new_position = current_position + steps;
         if (new_position <= $scope.board.last_cell) {
             History.push(new_position);
-            return new_position;
+            new_position;
         } else {
-            return current_position;
+            new_position = current_position;
         }
+        var check_arrow = checkArrow(new_position);
+        if (new_position != check_arrow) {
+            return check_arrow;
+        }
+        return new_position;
     };
 });
 

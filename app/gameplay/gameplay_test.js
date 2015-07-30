@@ -69,6 +69,12 @@ describe('GameplayController', function () {
             expect($scope.current_position).toBe(71);
         })
 
+        it('should move from 10 to 23 by arrow', function () {
+            $scope.board.arrows = [{"from": 10, "to": 23}]
+            $scope.moveChip(4);
+            expect($scope.current_position).toBe(23);
+        })
+
     })
 
     describe('$scope.showHistory', function () {

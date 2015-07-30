@@ -2,25 +2,25 @@ describe('GameplayController', function () {
     beforeEach(module('leela.gameplay'));
     beforeEach(module('leela.board'));
 
-    var $controller;
+    var $controller, $scope;
 
     beforeEach(inject(function (_$controller_) {
         $controller = _$controller_;
+        $scope = {};
+        var controller = $controller('GameplayController', {$scope: $scope});
+        $scope.board = {last_cell: 72};
+        $scope.current_position = 6;
+        $scope.born = true;
     }));
 
     describe('$scope.moveChip', function () {
+
         it('moves chip from the initial state to new position', function () {
-            var $scope = {};
-            var controller = $controller('GameplayController', {$scope: $scope});
-            $scope.current_position = 6;
-            $scope.born = true;
             $scope.moveChip(4);
             expect($scope.current_position).toBe(10);
         });
 
         it('should thow error if step out of range [1-6]', function () {
-            var $scope = {};
-            var controller = $controller('GameplayController', {$scope: $scope});
             expect(function () {
                 $scope.moveChip(0)
             }).toThrow();
@@ -30,26 +30,19 @@ describe('GameplayController', function () {
         });
 
         it('should born only after 6', function () {
-            var $scope = {};
-            var controller = $controller('GameplayController', {$scope: $scope});
-
+            $scope.born = false;
+            $scope.current_position = 68;
             $scope.moveChip(1);
             $scope.moveChip(2);
             $scope.moveChip(3);
             $scope.moveChip(4);
             $scope.moveChip(5);
 
-            expect($scope.current_position).toBe(68);
-
             $scope.moveChip(6);
             expect($scope.current_position).toBe(6);
         })
 
         it('should add steps if 6', function () {
-            var $scope = {};
-            var controller = $controller('GameplayController', {$scope: $scope});
-            $scope.current_position = 6;
-            $scope.born = true;
             $scope.moveChip(6);
             expect($scope.current_position).toBe(6);
             expect($scope.deposit).toBe(6);
@@ -62,26 +55,28 @@ describe('GameplayController', function () {
         })
 
         it('should reset deposit if 6x3', function () {
-            var $scope = {};
-            var controller = $controller('GameplayController', {$scope: $scope});
-            $scope.current_position = 6;
-            $scope.born = true;
             $scope.moveChip(6);
             $scope.moveChip(6);
             $scope.moveChip(6);
             expect($scope.deposit).toBe(0);
         })
 
+        it('shouldn\'t move if out of board', function () {
+            $scope.current_position = 69;
+            $scope.moveChip(4);
+            expect($scope.current_position).toBe(69);
+            $scope.moveChip(2);
+            expect($scope.current_position).toBe(71);
+        })
+
     })
 
     describe('$scope.showHistory', function () {
         it('store previous position after move in history', function () {
-            var $gamePlayScope = {};
-            var gameplayController = $controller('GameplayController', {$scope: $gamePlayScope});
-            $gamePlayScope.current_position = 1;
-            $gamePlayScope.born = true;
-            $gamePlayScope.moveChip(5);
-            $gamePlayScope.moveChip(5);
+            var gamePlayScope = $scope;
+            gamePlayScope.current_position = 1;
+            gamePlayScope.moveChip(5);
+            gamePlayScope.moveChip(5);
 
             var $historyScope = {};
             var historyController = $controller('HistoryController', {$scope: $historyScope});

@@ -58,7 +58,21 @@ describe('GameplayController', function () {
             $scope.moveChip(6);
             $scope.moveChip(6);
             $scope.moveChip(6);
-            expect($scope.deposit).toBe(0);
+            expect($scope.deposit).toBe(18);
+            $scope.moveChip(2);
+            expect($scope.current_position).toBe(8);
+        })
+
+        it('should reset deposit if 6x6', function () {
+            $scope.moveChip(6);
+            $scope.moveChip(6);
+            $scope.moveChip(6);
+            $scope.moveChip(6);
+            $scope.moveChip(6);
+            $scope.moveChip(6);
+            expect($scope.deposit).toBe(36);
+            $scope.moveChip(2);
+            expect($scope.current_position).toBe(8);
         })
 
         it('shouldn\'t move if out of board', function () {

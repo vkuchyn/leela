@@ -46,13 +46,14 @@ app.controller('GameplayController', function ($scope, History, Board) {
         var cells = $scope.game.board.cells;
         for (var i in cells) {
             if (i == position) {
-                return cells[i].goto;
+                var goto = (cells[i].goto) ? cells[i].goto : position;
+                return goto;
             }
         }
         return position;
     };
 
-    moveChipAndSaveHistory = function (steps, current_position) {
+    var moveChipAndSaveHistory = function (steps, current_position) {
         var new_position = current_position + steps;
         if (new_position <= $scope.game.board.last_cell) {
             History.push(new_position);

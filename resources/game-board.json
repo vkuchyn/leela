@@ -4,13 +4,246 @@
   "last_cell": 72,
   "cells": {
     "1": {
-      "title": "janma"
+      "title": "janma",
+      "title_en": "genesis",
+      "title_ru": "рождение"
     },
     "2": {
-      "title": "maya"
+      "title": "maya",
+      "title_en": "maya",
+      "title_ru": "майя"
+    },
+    "3": {
+      "title": "kodh"
+    },
+    "4": {
+      "title": "lobh"
+    },
+    "5": {
+      "title": "bhu"
     },
     "6": {
-      "title": "moha"
+      "title": "moha",
+      "title_en": "delusion",
+      "title_ru": "заблуждение"
+    },
+    "7": {
+      "title": "mada"
+    },
+    "8": {
+      "title": "matsar"
+    },
+    "9": {
+      "title": "kama loka"
+    },
+    "10": {
+      "title": "tapah",
+      "goto": 23
+    },
+    "11": {
+      "title": "gandharvas"
+    },
+    "12": {
+      "title": "eirshya",
+      "goto": 8
+    },
+    "13": {
+      "title": "antariksha"
+    },
+    "14": {
+      "title": "bhurva loka"
+    },
+    "15": {
+      "title": "naga loka"
+    },
+    "16": {
+      "title": "dwesh",
+      "goto":4
+    },
+    "17": {
+      "title": "daya",
+      "goto":69
+    },
+    "18": {
+      "title": "harsha loka"
+    },
+    "19": {
+      "title": "karma loka"
+    },
+    "20": {
+      "title": "daan",
+      "goto": 32
+    },
+    "21": {
+      "title": "kshmapana"
+    },
+    "22": {
+      "title": "dharma loka",
+      "goto": 60
+    },
+    "23": {
+      "title": "swarga loka"
+    },
+    "24": {
+      "title": "kusang loka",
+      "goto": 13
+    },
+    "25": {
+      "title": "susang loka"
+    },
+    "26": {
+      "title": "duch"
+    },
+    "27": {
+      "title": "parmarth",
+      "goto": 41
+    },
+    "28": {
+      "title": "sudharma",
+      "goto": 50
+    },
+    "29": {
+      "title": "adharma",
+      "goto": 6
+    },
+    "30": {
+      "title": "uttam gati"
+    },
+    "31": {
+      "title": "yaksh loka"
+    },
+    "32": {
+      "title": "mahar loka"
+    },
+    "33": {
+      "title": "gandha loka"
+    },
+    "34": {
+      "title": "rasa loka"
+    },
+    "35": {
+      "title": "narka loka"
+    },
+    "36": {
+      "title": "swatcha"
+    },
+    "37": {
+      "title": "gyana",
+      "goto": 66
+    },
+    "38": {
+      "title": "prana loka"
+    },
+    "39": {
+      "title": "apana loka"
+    },
+    "40": {
+      "title": "vyana loka"
+    },
+    "41": {
+      "title": "jana loka"
+    },
+    "42": {
+      "title": "agni loka"
+    },
+    "43": {
+      "title": "manushya janma"
+    },
+    "44": {
+      "title": "avidya",
+      "goto": 9
+    },
+    "45": {
+      "title": "suvidya",
+      "goto": 67
+    },
+    "46": {
+      "title": "viveka",
+      "goto": 62
+    },
+    "47": {
+      "title": "saraswati"
+    },
+    "48": {
+      "title": "yamuna"
+    },
+    "49": {
+      "title": "ganga"
+    },
+    "50": {
+      "title": "tapah loka"
+    },
+    "51": {
+      "title": "prithvi"
+    },
+    "52": {
+      "title": "himsa loka",
+      "goto": 35
+    },
+    "53": {
+      "title": "jala loka"
+    },
+    "54": {
+      "title": "bhakti loka",
+      "goto": 68
+    },
+    "55": {
+      "title": "ahamkara",
+      "goto": 3
+    },
+    "56": {
+      "title": "om kaar"
+    },
+    "57": {
+      "title": "vayu loka"
+    },
+    "58": {
+      "title": "teja loka"
+    },
+    "59": {
+      "title": "satya loka"
+    },
+    "60": {
+      "title": "subudhi"
+    },
+    "61": {
+      "title": "durbudhi",
+      "goto": 7
+    },
+    "62": {
+      "title": "sukha"
+    },
+    "63": {
+      "title": "tamas",
+      "goto": 2
+    },
+    "64": {
+      "title": "prakriti"
+    },
+    "65": {
+      "title": "uranta loka"
+    },
+    "66": {
+      "title": "ananda loka"
+    },
+    "67": {
+      "title": "rudra loka"
+    },
+    "68": {
+      "title": "vaikuntha loka"
+    },
+    "69": {
+      "title": "brahma loka"
+    },
+    "70": {
+      "title": "sato guna"
+    },
+    "71": {
+      "title": "rajo guna"
+    },
+    "72": {
+      "title": "tamo guna",
+      "goto": 51
     }
   }
 }

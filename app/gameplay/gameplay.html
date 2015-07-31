@@ -10,7 +10,7 @@
 </head>
 <body ng-app="leela.gameplay">
 <div ng-controller="GameplayController">
-    <pre>{{ game.current_position }}</pre>
+    <pre>{{ game.current_position }} {{game.board.cells[game.current_position].title}}</pre>
     <button ng-click="moveChip(1)">1</button>
     <button ng-click="moveChip(2)">2</button>
     <button ng-click="moveChip(3)">3</button>

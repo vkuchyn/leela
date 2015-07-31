@@ -30,6 +30,7 @@ describe('GameplayController', function () {
         });
 
         it('should born only after 6', function () {
+            $scope.game.board.cells = {"6": {"title": "moha"}};
             $scope.game.born = false;
             $scope.game.current_position = 68;
             $scope.moveChip(1);
@@ -89,6 +90,13 @@ describe('GameplayController', function () {
             expect($scope.game.current_position).toBe(23);
         });
 
+        it('should move from 12 to 8 by snake', function () {
+            $scope.game.board.cells = {12: {title: "eirshya", goto: 8}};
+            $scope.game.current_position = 11;
+            $scope.moveChip(1);
+            expect($scope.game.current_position).toBe(8);
+        });
+
     })
 
     describe('$scope.showHistory', function () {
@@ -106,6 +114,14 @@ describe('GameplayController', function () {
             $scope.moveChip(4);
             $scope.moveChip(1);
             expect($scope.showHistory()).toEqual([10, 24]);
+        });
+
+        it('save to history target cell when moving by snake', function () {
+            $scope.game.board.cells = {"12": {"title": "tapah", goto: 8}};
+            $scope.game.current_position = 8;
+            $scope.moveChip(4);
+            $scope.moveChip(1);
+            expect($scope.showHistory()).toEqual([12, 9]);
         });
     })
 });

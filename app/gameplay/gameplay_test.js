@@ -84,7 +84,7 @@ describe('GameplayController', function () {
         });
 
         it('should move from 10 to 23 by arrow', function () {
-            $scope.game.board.arrows = [{"from": 10, "to": 23}];
+            $scope.game.board.cells = {10: {"title": "tapah", goto: 23}};
             $scope.moveChip(4);
             expect($scope.game.current_position).toBe(23);
         });
@@ -101,7 +101,7 @@ describe('GameplayController', function () {
         });
 
         it('save to history target cell when moving by arrow', function () {
-            $scope.game.board.arrows = [{"from": 10, "to": 23}];
+            $scope.game.board.cells = {"10": {"title": "tapah", goto: 23}};
             $scope.game.current_position = 6;
             $scope.moveChip(4);
             $scope.moveChip(1);

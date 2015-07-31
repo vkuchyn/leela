@@ -9,6 +9,7 @@ var app = angular.module('leela.gameplay', ['ngRoute', 'leela.board'])
 app.controller('GameplayController', function ($scope, History, Board) {
     $scope.game = {deposit : 0, born:false};
     $scope.game.history = History;
+
     var boardPromice = Board.getBoard();
     boardPromice.then(function (result) {
         $scope.game.board = result;
@@ -41,11 +42,11 @@ app.controller('GameplayController', function ($scope, History, Board) {
         }
     }
 
-    var checkArrow = function (position) {
-        var arrows = $scope.game.board.arrows;
-        for (var i in arrows) {
-            if (arrows[i].from == position) {
-                return arrows[i].to;
+    var checkRedirect = function (position) {
+        var cells = $scope.game.board.cells;
+        for (var i in cells) {
+            if (i == position) {
+                return cells[i].goto;
             }
         }
         return position;
@@ -59,7 +60,7 @@ app.controller('GameplayController', function ($scope, History, Board) {
         } else {
             new_position = current_position;
         }
-        var check_arrow = checkArrow(new_position);
+        var check_arrow = checkRedirect(new_position);
         if (new_position != check_arrow) {
             return check_arrow;
         }

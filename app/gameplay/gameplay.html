@@ -20,6 +20,9 @@
     <pre> {{game.deposit}}</pre>
 </div>
 <div ng-controller="GameplayController">
+    <ul ng-repeat="index in showHistory()">
+        <li>{{index}}. {{game.board.cells[index].title}}</li>
+    </ul>
     <pre>{{ showHistory() }}</pre>
 </div>
 </body>

@@ -2,7 +2,7 @@ var app = angular.module('leela.gameplay', ['ngRoute', 'leela.board'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/gameplay', {
             templateUrl: 'gameplay/gameplay.html',
-            controller: 'GameplayController',
+            controller: 'GameplayController'
         });
     }]);
 
@@ -12,7 +12,7 @@ app.controller('GameplayController', function ($scope, History, Board) {
     var boardPromice = Board.getBoard();
     boardPromice.then(function (result) {
         $scope.game.board = result;
-        $scope.gmae.current_position = result.space_cell;
+        $scope.game.current_position = result.space_cell;
     });
     $scope.moveChip = function (steps) {
         checkStepOutOfRange(steps);
@@ -65,9 +65,6 @@ app.controller('GameplayController', function ($scope, History, Board) {
         }
         return new_position;
     };
-});
-
-app.controller('HistoryController', function ($scope, History) {
 
     $scope.showHistory = function () {
         return History;

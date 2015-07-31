@@ -7,7 +7,7 @@ describe('GameplayController', function () {
     beforeEach(inject(function (_$controller_) {
         $controller = _$controller_;
         $scope = {};
-        var controller = $controller('GameplayController', {$scope: $scope});
+        $controller('GameplayController', {$scope: $scope});
         $scope.game.board = {last_cell: 72};
         $scope.game.current_position = 6;
         $scope.game.born = true;
@@ -40,7 +40,7 @@ describe('GameplayController', function () {
 
             $scope.moveChip(6);
             expect($scope.game.current_position).toBe(6);
-        })
+        });
 
         it('should add steps if 6', function () {
             $scope.moveChip(6);
@@ -52,7 +52,7 @@ describe('GameplayController', function () {
             $scope.moveChip(1);
             expect($scope.game.current_position).toBe(19);
             expect($scope.game.deposit).toBe(0);
-        })
+        });
 
         it('should reset deposit if 6x3', function () {
             $scope.moveChip(6);
@@ -61,7 +61,7 @@ describe('GameplayController', function () {
             expect($scope.game.deposit).toBe(18);
             $scope.moveChip(2);
             expect($scope.game.current_position).toBe(8);
-        })
+        });
 
         it('should reset deposit if 6x6', function () {
             $scope.moveChip(6);
@@ -73,7 +73,7 @@ describe('GameplayController', function () {
             expect($scope.game.deposit).toBe(36);
             $scope.moveChip(2);
             expect($scope.game.current_position).toBe(8);
-        })
+        });
 
         it('shouldn\'t move if out of board', function () {
             $scope.game.current_position = 69;
@@ -81,40 +81,31 @@ describe('GameplayController', function () {
             expect($scope.game.current_position).toBe(69);
             $scope.moveChip(2);
             expect($scope.game.current_position).toBe(71);
-        })
+        });
 
         it('should move from 10 to 23 by arrow', function () {
-            $scope.game.board.arrows = [{"from": 10, "to": 23}]
+            $scope.game.board.arrows = [{"from": 10, "to": 23}];
             $scope.moveChip(4);
             expect($scope.game.current_position).toBe(23);
-        })
+        });
 
     })
 
     describe('$scope.showHistory', function () {
         it('store previous position after move in history', function () {
-            var gamePlayScope = $scope;
-            gamePlayScope.game.current_position = 1;
-            gamePlayScope.moveChip(5);
-            gamePlayScope.moveChip(5);
+            $scope.game.current_position = 1;
+            $scope.moveChip(5);
+            $scope.moveChip(5);
 
-            var $historyScope = {};
-            var historyController = $controller('HistoryController', {$scope: $historyScope});
-
-            expect($historyScope.showHistory()).toEqual([6, 11]);
+            expect($scope.showHistory()).toEqual([6, 11]);
         });
 
         it('save to history target cell when moving by arrow', function () {
-            $scope.game.board.arrows = [{"from": 10, "to": 23}]
-            var gamePlayScope = $scope;
-            gamePlayScope.game.current_position = 6;
-            gamePlayScope.moveChip(4);
-            gamePlayScope.moveChip(1);
-
-            var $historyScope = {};
-            var historyController = $controller('HistoryController', {$scope: $historyScope});
-
-            expect($historyScope.showHistory()).toEqual([10, 24]);
+            $scope.game.board.arrows = [{"from": 10, "to": 23}];
+            $scope.game.current_position = 6;
+            $scope.moveChip(4);
+            $scope.moveChip(1);
+            expect($scope.showHistory()).toEqual([10, 24]);
         });
     })
 });

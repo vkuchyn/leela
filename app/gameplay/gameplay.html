@@ -10,16 +10,16 @@
 </head>
 <body ng-app="leela.gameplay">
 <div ng-controller="GameplayController">
-    <pre>{{ current_position }}</pre>
+    <pre>{{ game.current_position }}</pre>
     <button ng-click="moveChip(1)">1</button>
     <button ng-click="moveChip(2)">2</button>
     <button ng-click="moveChip(3)">3</button>
     <button ng-click="moveChip(4)">4</button>
     <button ng-click="moveChip(5)">5</button>
     <button ng-click="moveChip(6)">6</button>
-    <pre> {{deposit}}</pre>
+    <pre> {{game.deposit}}</pre>
 </div>
-<div ng-controller="HistoryController">
+<div ng-controller="GameplayController">
     <pre>{{ showHistory() }}</pre>
 </div>
 </body>

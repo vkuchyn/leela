@@ -7,30 +7,30 @@ var app = angular.module('leela.gameplay', ['ngRoute', 'leela.board'])
     }]);
 
 app.controller('GameplayController', function ($scope, History, Board) {
-    $scope.born = false;
-    $scope.deposit = 0;
+    $scope.game = {deposit : 0, born:false};
+    $scope.game.history = History;
     var boardPromice = Board.getBoard();
     boardPromice.then(function (result) {
-        $scope.board = result;
-        $scope.current_position = $scope.board.space_cell;
+        $scope.game.board = result;
+        $scope.gmae.current_position = result.space_cell;
     });
     $scope.moveChip = function (steps) {
         checkStepOutOfRange(steps);
-        if (!$scope.born) {
+        if (!$scope.game.born) {
             if (steps == 6) {
-                $scope.born = true;
-                $scope.current_position = moveChipAndSaveHistory(6, 0);
+                $scope.game.born = true;
+                $scope.game.current_position = moveChipAndSaveHistory(6, 0);
             }
         } else {
             if (steps == 6) {
-                $scope.deposit += 6;
+                $scope.game.deposit += 6;
             } else {
-                if ($scope.deposit % 18 == 0) {
-                    $scope.deposit = 0;
+                if ($scope.game.deposit % 18 == 0) {
+                    $scope.game.deposit = 0;
                 }
-                steps += $scope.deposit;
-                $scope.deposit = 0;
-                $scope.current_position = moveChipAndSaveHistory(steps, $scope.current_position);
+                steps += $scope.game.deposit;
+                $scope.game.deposit = 0;
+                $scope.game.current_position = moveChipAndSaveHistory(steps, $scope.game.current_position);
             }
         }
     };
@@ -42,7 +42,7 @@ app.controller('GameplayController', function ($scope, History, Board) {
     }
 
     var checkArrow = function (position) {
-        var arrows = $scope.board.arrows;
+        var arrows = $scope.game.board.arrows;
         for (var i in arrows) {
             if (arrows[i].from == position) {
                 return arrows[i].to;
@@ -53,7 +53,7 @@ app.controller('GameplayController', function ($scope, History, Board) {
 
     moveChipAndSaveHistory = function (steps, current_position) {
         var new_position = current_position + steps;
-        if (new_position <= $scope.board.last_cell) {
+        if (new_position <= $scope.game.board.last_cell) {
             History.push(new_position);
             new_position;
         } else {

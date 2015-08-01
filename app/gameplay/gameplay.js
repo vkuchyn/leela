@@ -13,7 +13,7 @@ app.controller('GameplayController', function ($scope, History, Board) {
     var boardPromice = Board.getBoard();
     boardPromice.then(function (result) {
         $scope.game.board = result;
-        $scope.game.current_position = result.space_cell;
+        $scope.game.current_position = result.cosmic_cell;
     });
     $scope.moveChip = function (steps) {
         checkStepOutOfRange(steps);

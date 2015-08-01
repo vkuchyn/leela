@@ -12,7 +12,7 @@ app.controller('GameplayController', function ($scope, History, Board) {
 
     var boardPromice = Board.getBoard();
     boardPromice.then(function (result) {
-        $scope.game.board = result;
+        $scope.board = result;
         $scope.game.current_position = result.cosmic_cell;
     });
 
@@ -36,7 +36,7 @@ app.controller('GameplayController', function ($scope, History, Board) {
                 $scope.game.current_position = moveChipAndSaveHistory(steps, $scope.game.current_position);
             }
 
-            if ($scope.game.current_position == $scope.game.board.cosmic_cell) {
+            if ($scope.game.current_position == $scope.board.cosmic_cell) {
                 $scope.game.finished = true;
             }
         }
@@ -55,7 +55,7 @@ app.controller('GameplayController', function ($scope, History, Board) {
     }
 
     var checkRedirect = function (position) {
-        var cells = $scope.game.board.cells;
+        var cells = $scope.board.cells;
         for (var i in cells) {
             if (i == position) {
                 var goto = (cells[i].goto) ? cells[i].goto : position;
@@ -67,7 +67,7 @@ app.controller('GameplayController', function ($scope, History, Board) {
 
     var moveChipAndSaveHistory = function (steps, current_position) {
         var new_position = current_position + steps;
-        if (new_position <= $scope.game.board.last_cell) {
+        if (new_position <= $scope.board.last_cell) {
             History.push(new_position);
         } else {
             new_position = current_position;

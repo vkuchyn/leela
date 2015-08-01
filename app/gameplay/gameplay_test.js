@@ -8,7 +8,7 @@ describe('GameplayController', function () {
         $controller = _$controller_;
         $scope = {};
         $controller('GameplayController', {$scope: $scope});
-        $scope.game.board = {last_cell: 72, cosmic_cell: 68};
+        $scope.board = {last_cell: 72, cosmic_cell: 68};
         $scope.game.current_position = 6;
         $scope.game.born = true;
         $scope.game.finished = false;
@@ -31,7 +31,7 @@ describe('GameplayController', function () {
         });
 
         it('should born only after 6', function () {
-            $scope.game.board.cells = {"6": {"title": "moha"}};
+            $scope.board.cells = {"6": {"title": "moha"}};
             $scope.game.born = false;
             $scope.game.current_position = 68;
             $scope.moveChip(1);
@@ -86,13 +86,13 @@ describe('GameplayController', function () {
         });
 
         it('should move from 10 to 23 by arrow', function () {
-            $scope.game.board.cells = {10: {"title": "tapah", goto: 23}};
+            $scope.board.cells = {10: {"title": "tapah", goto: 23}};
             $scope.moveChip(4);
             expect($scope.game.current_position).toBe(23);
         });
 
         it('should move from 12 to 8 by snake', function () {
-            $scope.game.board.cells = {12: {title: "eirshya", goto: 8}};
+            $scope.board.cells = {12: {title: "eirshya", goto: 8}};
             $scope.game.current_position = 11;
             $scope.moveChip(1);
             expect($scope.game.current_position).toBe(8);
@@ -124,7 +124,7 @@ describe('GameplayController', function () {
         });
 
         it('save to history target cell when moving by arrow', function () {
-            $scope.game.board.cells = {"10": {"title": "tapah", goto: 23}};
+            $scope.board.cells = {"10": {"title": "tapah", goto: 23}};
             $scope.game.current_position = 6;
             $scope.moveChip(4);
             $scope.moveChip(1);
@@ -132,7 +132,7 @@ describe('GameplayController', function () {
         });
 
         it('save to history target cell when moving by snake', function () {
-            $scope.game.board.cells = {"12": {"title": "tapah", goto: 8}};
+            $scope.board.cells = {"12": {"title": "tapah", goto: 8}};
             $scope.game.current_position = 8;
             $scope.moveChip(4);
             $scope.moveChip(1);

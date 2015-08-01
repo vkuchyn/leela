@@ -8,9 +8,10 @@ describe('GameplayController', function () {
         $controller = _$controller_;
         $scope = {};
         $controller('GameplayController', {$scope: $scope});
-        $scope.game.board = {last_cell: 72};
+        $scope.game.board = {last_cell: 72, cosmic_sell: 68};
         $scope.game.current_position = 6;
         $scope.game.born = true;
+        $scope.game.finished = false;
     }));
 
     describe('$scope.moveChip', function () {
@@ -95,6 +96,20 @@ describe('GameplayController', function () {
             $scope.game.current_position = 11;
             $scope.moveChip(1);
             expect($scope.game.current_position).toBe(8);
+        });
+
+        it('should finish game when gets on 68', function () {
+            $scope.game.current_position = 67;
+            $scope.moveChip(1);
+            expect($scope.game.current_position).toBe(68);
+            expect($scope.game.finished).toBe(true);
+        });
+
+        it('expect error when try to make a move after game is finished', function () {
+            $scope.game.finished = true;
+            expect(function () {
+                $scope.moveChip(1)
+            }).toThrow();
         });
 
     })

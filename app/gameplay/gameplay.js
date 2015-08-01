@@ -7,7 +7,7 @@ var app = angular.module('leela.gameplay', ['ngRoute', 'leela.board'])
     }]);
 
 app.controller('GameplayController', function ($scope, History, Board) {
-    $scope.game = {deposit : 0, born:false};
+    $scope.game = {deposit: 0, born: false};
     $scope.game.history = History;
 
     var boardPromice = Board.getBoard();
@@ -15,8 +15,10 @@ app.controller('GameplayController', function ($scope, History, Board) {
         $scope.game.board = result;
         $scope.game.current_position = result.cosmic_cell;
     });
+
     $scope.moveChip = function (steps) {
         checkStepOutOfRange(steps);
+        checkGameIsFinished($scope.game.finished);
         if (!$scope.game.born) {
             if (steps == 6) {
                 $scope.game.born = true;
@@ -33,8 +35,18 @@ app.controller('GameplayController', function ($scope, History, Board) {
                 $scope.game.deposit = 0;
                 $scope.game.current_position = moveChipAndSaveHistory(steps, $scope.game.current_position);
             }
+
+            if ($scope.game.current_position == $scope.game.board.cosmic_sell) {
+                $scope.game.finished = true;
+            }
         }
     };
+
+    var checkGameIsFinished = function (finished) {
+        if (finished) {
+            throw new Error("Cannot make a move when game finished");
+        }
+    }
 
     var checkStepOutOfRange = function (steps) {
         if (steps <= 0 || steps > 6) {
@@ -57,7 +69,6 @@ app.controller('GameplayController', function ($scope, History, Board) {
         var new_position = current_position + steps;
         if (new_position <= $scope.game.board.last_cell) {
             History.push(new_position);
-            new_position;
         } else {
             new_position = current_position;
         }

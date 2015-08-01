@@ -20,7 +20,7 @@
     <pre> {{game.deposit}}</pre>
 </div>
 <div ng-controller="GameplayController">
-    <ul ng-repeat="index in showHistory()">
+    <ul ng-repeat="index in showHistory().reverse()">
         <li>{{index}}. {{game.board.cells[index].title}}</li>
     </ul>
     <pre>{{ showHistory() }}</pre>

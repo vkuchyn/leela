@@ -8,7 +8,7 @@ describe('GameplayController', function () {
         $controller = _$controller_;
         $scope = {};
         $controller('GameplayController', {$scope: $scope});
-        $scope.game.board = {last_cell: 72, cosmic_sell: 68};
+        $scope.game.board = {last_cell: 72, cosmic_cell: 68};
         $scope.game.current_position = 6;
         $scope.game.born = true;
         $scope.game.finished = false;

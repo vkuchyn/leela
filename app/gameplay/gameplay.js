@@ -36,7 +36,7 @@ app.controller('GameplayController', function ($scope, History, Board) {
                 $scope.game.current_position = moveChipAndSaveHistory(steps, $scope.game.current_position);
             }
 
-            if ($scope.game.current_position == $scope.game.board.cosmic_sell) {
+            if ($scope.game.current_position == $scope.game.board.cosmic_cell) {
                 $scope.game.finished = true;
             }
         }

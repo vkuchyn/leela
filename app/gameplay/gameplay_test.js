@@ -2,16 +2,17 @@ describe('GameplayController', function () {
     beforeEach(module('leela.gameplay'));
     beforeEach(module('leela.board'));
 
-    var $controller, $scope;
+    var $controller, $scope, GameService;
 
-    beforeEach(inject(function (_$controller_) {
+    beforeEach(inject(function (_$controller_, _GameService_) {
         $controller = _$controller_;
+        GameService = _GameService_;
+
         $scope = {};
         $controller('GameplayController', {$scope: $scope});
         $scope.board = {last_cell: 72, cosmic_cell: 68};
-        $scope.game.current_position = 6;
+        $scope.game = GameService.createNewGame(6);
         $scope.game.born = true;
-        $scope.game.finished = false;
     }));
 
     describe('$scope.moveChip', function () {
@@ -112,7 +113,18 @@ describe('GameplayController', function () {
             }).toThrow();
         });
 
-    })
+    });
+
+    describe('game service ', function () {
+        it('should generate new game', function () {
+            var newGame = GameService.createNewGame(123);
+            expect(newGame.deposit).toBe(0);
+            expect(newGame.born).toBe(false);
+            expect(newGame.finished).toBe(false);
+            expect(newGame.history).toEqual([ ]);
+            expect(newGame.current_position).toBe(123);
+        });
+    });
 
     describe('$scope.showHistory', function () {
         it('store previous position after move in history', function () {

@@ -1,10 +1,4 @@
-var app = angular.module('leela.gameplay', ['ngRoute', 'leela.board'])
-    .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/gameplay', {
-            templateUrl: 'gameplay/gameplay.html',
-            controller: 'GameplayController'
-        });
-    }]);
+var app = angular.module('leela.gameplay', ['leela.board']);
 
 app.controller('GameplayController', function ($scope, History, Board) {
     $scope.game = {deposit: 0, born: false};

@@ -10,20 +10,26 @@
 </head>
 <body ng-app="leela.gameplay">
 <div ng-controller="GameplayController">
-    <pre>{{ game.current_position }} {{game.board.cells[game.current_position].title}}</pre>
-    <button ng-click="moveChip(1)">1</button>
-    <button ng-click="moveChip(2)">2</button>
-    <button ng-click="moveChip(3)">3</button>
-    <button ng-click="moveChip(4)">4</button>
-    <button ng-click="moveChip(5)">5</button>
-    <button ng-click="moveChip(6)">6</button>
-    <pre> {{game.deposit}}</pre>
-</div>
-<div ng-controller="GameplayController">
-    <ul ng-repeat="index in showHistory().reverse()">
-        <li>{{index}}. {{game.board.cells[index].title}}</li>
-    </ul>
-    <pre>{{ showHistory() }}</pre>
-</div>
+    <div ng-hide="game.finished">
+        <pre>{{ game.current_position }} {{board.cells[game.current_position].title}}</pre>
+        <button ng-click="moveChip(1)">1</button>
+        <button ng-click="moveChip(2)">2</button>
+        <button ng-click="moveChip(3)">3</button>
+        <button ng-click="moveChip(4)">4</button>
+        <button ng-click="moveChip(5)">5</button>
+        <button ng-click="moveChip(6)">6</button>
+        <pre> {{game.deposit}}</pre>
+    </div>
+    <div ng-hide="!game.finished">
+        <p>Вы закончили игру.</p>
+        <button ng-click="startNewGame()">Start new game</button>
+    </div>
+
+    <div>
+        <ul ng-repeat="index in showHistory().slice().reverse()">
+            <li>{{index}}. {{board.cells[index].title}}</li>
+        </ul>
+        <pre>{{ showHistory() }}</pre>
+    </div>
 </body>
 </html>

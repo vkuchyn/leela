@@ -26,7 +26,7 @@
     </div>
 
     <div>
-        <ul ng-repeat="index in showHistory().slice().reverse()">
+        <ul ng-repeat="index in showHistory().slice().reverse() track by $index">
             <li>{{index}}. {{board.cells[index].title}}</li>
         </ul>
         <pre>{{ showHistory() }}</pre>

@@ -1,10 +1,10 @@
 var app = angular.module('leela.gameplay', ['leela.board']);
 
-app.controller('GameplayController', function ($scope, History, Board, GameService) {
+app.controller('GameplayController', function ($scope, Board, GameService) {
     var boardPromise = Board.getBoard();
     boardPromise.then(function (result) {
         $scope.board = result;
-        $scope.game = GameService.createNewGame(board.cosmic_cell);
+        $scope.game = GameService.createNewGame(result.cosmic_cell);
     });
 
     $scope.moveChip = function (steps) {
@@ -59,7 +59,7 @@ app.controller('GameplayController', function ($scope, History, Board, GameServi
     var moveChipAndSaveHistory = function (steps, current_position) {
         var new_position = current_position + steps;
         if (new_position <= $scope.board.last_cell) {
-            History.push(new_position);
+            $scope.game.history.push(new_position);
         } else {
             new_position = current_position;
         }
@@ -75,7 +75,7 @@ app.controller('GameplayController', function ($scope, History, Board, GameServi
     };
 
     $scope.showHistory = function () {
-        return History;
+        return $scope.game.history;
     }
 });
 
@@ -86,8 +86,3 @@ app.factory('GameService', function () {
 
     return {createNewGame : createNewGame};
 });
-
-
-app.factory('History', function () {
-    return new Array();
-})

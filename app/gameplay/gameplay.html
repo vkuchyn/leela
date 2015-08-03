@@ -28,6 +28,7 @@
     <div>
         <ul ng-repeat="index in showHistory().slice().reverse() track by $index">
             <li>{{index}}. {{board.cells[index].title}}</li>
+            <button ng-show="$index == 0" ng-click="undoLastMove()">X</button>
         </ul>
         <pre>{{ showHistory() }}</pre>
     </div>

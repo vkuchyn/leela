@@ -51,7 +51,7 @@ app.controller('GameplayController', function ($scope, board, GameService) {
     }
 
     $scope.undoLastMove = function () {
-        GameService.undoLastMove($scope.game);
+        GameService.undoLastMove($scope.game, board);
     }
 });
 

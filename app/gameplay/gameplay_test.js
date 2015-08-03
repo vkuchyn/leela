@@ -121,8 +121,17 @@ describe('GameplayController', function () {
             expect(newGame.deposit).toBe(0);
             expect(newGame.born).toBe(false);
             expect(newGame.finished).toBe(false);
-            expect(newGame.history).toEqual([ ]);
+            expect(newGame.history).toEqual([]);
             expect(newGame.current_position).toBe(123);
+        });
+
+        it('should undo last move', function () {
+            var game = GameService.createNewGame(68);
+            GameService.undoLastMove(game);
+            expect(game.history).toEqual([]);
+            game.history = [1, 2, 3];
+            GameService.undoLastMove(game);
+            expect(game.history).toEqual([1, 2]);
         });
     });
 

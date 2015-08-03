@@ -81,5 +81,9 @@ app.factory('GameService', function () {
         return {deposit: 0, born: false, finished: false, history: new Array(), current_position: cosmic_cell};
     }
 
-    return {createNewGame: createNewGame};
+    var undoLastMove = function (game) {
+        game.history.pop();
+    }
+
+    return {createNewGame: createNewGame, undoLastMove: undoLastMove};
 });

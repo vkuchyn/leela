@@ -10,7 +10,7 @@ app.controller('GameplayController', function ($scope, board, GameService) {
         if (!$scope.game.born) {
             if (steps == 6) {
                 $scope.game.born = true;
-                $scope.game.current_position = moveChipAndSaveHistory(6, 0);
+                $scope.game.current_position = GameService.moveChipAndSaveHistory(6, $scope.game, $scope.board);
             }
         } else {
             if (steps == 6) {
@@ -19,9 +19,9 @@ app.controller('GameplayController', function ($scope, board, GameService) {
                 if ($scope.game.deposit % 18 == 0) {
                     $scope.game.deposit = 0;
                 }
-                steps += $scope.game.deposit;
+                var new_position = steps + $scope.game.deposit + $scope.game.current_position;
                 $scope.game.deposit = 0;
-                $scope.game.current_position = moveChipAndSaveHistory(steps, $scope.game.current_position);
+                $scope.game.current_position = GameService.moveChipAndSaveHistory(new_position, $scope.game, $scope.board);
             }
 
             if ($scope.game.current_position == $scope.board.cosmic_cell) {
@@ -42,31 +42,6 @@ app.controller('GameplayController', function ($scope, board, GameService) {
         }
     }
 
-    var checkRedirect = function (position) {
-        var cells = $scope.board.cells;
-        for (var i in cells) {
-            if (i == position) {
-                var goto = (cells[i].goto) ? cells[i].goto : position;
-                return goto;
-            }
-        }
-        return position;
-    };
-
-    var moveChipAndSaveHistory = function (steps, current_position) {
-        var new_position = current_position + steps;
-        if (new_position <= $scope.board.last_cell) {
-            $scope.game.history.push(new_position);
-        } else {
-            new_position = current_position;
-        }
-        var check_arrow = checkRedirect(new_position);
-        if (new_position != check_arrow) {
-            return check_arrow;
-        }
-        return new_position;
-    };
-
     $scope.startNewGame = function () {
         $scope.game = GameService.createNewGame(board.cosmic_cell);
     };
@@ -75,7 +50,7 @@ app.controller('GameplayController', function ($scope, board, GameService) {
         return $scope.game.history;
     }
 
-    $scope.undoLastMove = function() {
+    $scope.undoLastMove = function () {
         GameService.undoLastMove($scope.game);
     }
 });
@@ -95,5 +70,24 @@ app.factory('GameService', function () {
         }
     };
 
-    return {createNewGame: createNewGame, undoLastMove: undoLastMove};
+
+    var checkRedirect = function (position, board) {
+        var cell = board.cells[position];
+        if (!cell ){
+            return position;
+        }
+        var goto = (cell.goto) ? cell.goto : position;
+        return goto;
+    };
+
+    var moveChipAndSaveHistory = function (new_position, game, board) {
+        if (new_position <= board.last_cell) {
+            game.history.push(new_position);
+            return checkRedirect(new_position, board);
+        } else {
+            return game.current_position;
+        }
+    };
+
+    return {createNewGame: createNewGame, undoLastMove: undoLastMove, moveChipAndSaveHistory: moveChipAndSaveHistory};
 });

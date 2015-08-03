@@ -1,11 +1,8 @@
 var app = angular.module('leela.gameplay', ['leela.board']);
 
-app.controller('GameplayController', function ($scope, Board, GameService) {
-    var boardPromise = Board.getBoard();
-    boardPromise.then(function (result) {
-        $scope.board = result;
-        $scope.game = GameService.createNewGame(result.cosmic_cell);
-    });
+app.controller('GameplayController', function ($scope, board, GameService) {
+    $scope.board = board;
+    $scope.game = GameService.createNewGame(board.cosmic_cell);
 
     $scope.moveChip = function (steps) {
         checkStepOutOfRange(steps);
@@ -84,5 +81,5 @@ app.factory('GameService', function () {
         return {deposit: 0, born: false, finished: false, history: new Array(), current_position: cosmic_cell};
     }
 
-    return {createNewGame : createNewGame};
+    return {createNewGame: createNewGame};
 });

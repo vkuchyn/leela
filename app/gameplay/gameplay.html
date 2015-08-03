@@ -8,8 +8,8 @@
     <script src="gameplay.js"></script>
 
 </head>
-<body ng-app="leela.gameplay">
-<div ng-controller="GameplayController">
+<body ng-app="leela.gameplay" class="gameplay1">
+<div class="gameplay2">
     <div ng-hide="game.finished">
         <pre>{{ game.current_position }} {{board.cells[game.current_position].title}}</pre>
         <button ng-click="moveChip(1)">1</button>

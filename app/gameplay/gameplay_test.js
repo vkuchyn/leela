@@ -9,8 +9,8 @@ describe('GameplayController', function () {
         GameService = _GameService_;
 
         $scope = {};
-        $controller('GameplayController', {$scope: $scope});
-        $scope.board = {last_cell: 72, cosmic_cell: 68};
+        board = {last_cell: 72, cosmic_cell: 68};
+        $controller('GameplayController', {$scope: $scope, board: board});
         $scope.game = GameService.createNewGame(6);
         $scope.game.born = true;
     }));

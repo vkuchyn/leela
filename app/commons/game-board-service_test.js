@@ -12,7 +12,7 @@ describe("Test load board from json", function () {
             $httpBackend = _$httpBackend_;
             $httpBackend.when('GET', '/Leela/resources/game-board.json').respond({"space_cell": 68, "delusion_cell": 6});
             boardServiceGetter = function () {
-                return $injector.get('Board');
+                return $injector.get('BoardService');
             }
         }));
 

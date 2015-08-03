@@ -9,7 +9,7 @@ describe('GameplayController', function () {
         GameService = _GameService_;
 
         $scope = {};
-        board = {last_cell: 72, cosmic_cell: 68};
+        board = {last_cell: 72, cosmic_cell: 68, cells: {}};
         $controller('GameplayController', {$scope: $scope, board: board});
         $scope.game = GameService.createNewGame(6);
         $scope.game.born = true;
@@ -127,14 +127,14 @@ describe('GameplayController', function () {
 
         it('should undo last move for empty array', function () {
             var game = GameService.createNewGame(68);
-            GameService.undoLastMove(game);
+            GameService.undoLastMove(game, $scope.board);
             expect(game.history).toEqual([]);
         });
 
         it('should undo last move', function () {
             var game = GameService.createNewGame(68);
             game.history = [1, 2, 3];
-            GameService.undoLastMove(game);
+            GameService.undoLastMove(game, $scope.board);
             expect(game.history).toEqual([1, 2]);
         });
 
@@ -142,17 +142,32 @@ describe('GameplayController', function () {
             var game = GameService.createNewGame(6);
             game.born = true;
             game.history = [6];
-            GameService.undoLastMove(game);
+            GameService.undoLastMove(game, $scope.board);
             expect(game.history).toEqual([]);
             expect(game.born).toBe(false);
         });
 
-        it('should throw an error when game is finished', function () {
+        it('should set finished to false when game is finished', function () {
             var game = GameService.createNewGame(68);
             game.finished = true;
-            GameService.undoLastMove(game);
+            GameService.undoLastMove(game, $scope.board);
             expect(game.finished).toBe(false);
-        })
+        });
+
+        it('should undo current position on undo move', function () {
+            var game = GameService.createNewGame(68);
+            game.history = [6, 9];
+            GameService.undoLastMove(game, $scope.board);
+            expect(game.current_position).toBe(6);
+        });
+
+        it('should undo current position to arrow on undo move', function () {
+            var game = GameService.createNewGame(68);
+            game.history = [6, 10, 24];
+            $scope.board.cells = {10: {goto:23} }
+            GameService.undoLastMove(game, $scope.board);
+            expect(game.current_position).toBe(23);
+        });
 
     });
 

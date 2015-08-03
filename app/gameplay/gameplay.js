@@ -60,7 +60,7 @@ app.factory('GameService', function () {
         return {deposit: 0, born: false, finished: false, history: new Array(), current_position: cosmic_cell};
     }
 
-    var undoLastMove = function (game) {
+    var undoLastMove = function (game, board) {
         game.history.pop();
         if (game.history.length == 0) {
             game.born = false;
@@ -68,6 +68,7 @@ app.factory('GameService', function () {
         if (game.finished) {
             game.finished = false;
         }
+        game.current_position = checkRedirect(game.history[game.history.length - 1], board);
     };
 
 

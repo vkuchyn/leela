@@ -145,6 +145,7 @@ describe('GameplayController', function () {
             GameService.undoLastMove(game, $scope.board);
             expect(game.history).toEqual([]);
             expect(game.born).toBe(false);
+            expect(game.current_position).toBe(68);
         });
 
         it('should set finished to false when game is finished', function () {

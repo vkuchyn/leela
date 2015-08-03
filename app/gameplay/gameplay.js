@@ -64,17 +64,20 @@ app.factory('GameService', function () {
         game.history.pop();
         if (game.history.length == 0) {
             game.born = false;
+            game.current_position = board.cosmic_cell;
+        } else {
+            if (game.finished) {
+                game.finished = false;
+            }
+            game.current_position = checkRedirect(game.history[game.history.length - 1], board);
         }
-        if (game.finished) {
-            game.finished = false;
-        }
-        game.current_position = checkRedirect(game.history[game.history.length - 1], board);
+
     };
 
 
     var checkRedirect = function (position, board) {
         var cell = board.cells[position];
-        if (!cell ){
+        if (!cell) {
             return position;
         }
         var goto = (cell.goto) ? cell.goto : position;

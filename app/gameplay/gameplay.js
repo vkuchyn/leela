@@ -68,11 +68,15 @@ app.controller('GameplayController', function ($scope, board, GameService) {
     };
 
     $scope.startNewGame = function () {
-
+        $scope.game = GameService.createNewGame(board.cosmic_cell);
     };
 
     $scope.showHistory = function () {
         return $scope.game.history;
+    }
+
+    $scope.undoLastMove = function() {
+        GameService.undoLastMove($scope.game);
     }
 });
 
@@ -83,7 +87,13 @@ app.factory('GameService', function () {
 
     var undoLastMove = function (game) {
         game.history.pop();
-    }
+        if (game.history.length == 0) {
+            game.born = false;
+        }
+        if (game.finished) {
+            game.finished = false;
+        }
+    };
 
     return {createNewGame: createNewGame, undoLastMove: undoLastMove};
 });

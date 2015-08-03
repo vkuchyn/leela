@@ -125,14 +125,35 @@ describe('GameplayController', function () {
             expect(newGame.current_position).toBe(123);
         });
 
-        it('should undo last move', function () {
+        it('should undo last move for empty array', function () {
             var game = GameService.createNewGame(68);
             GameService.undoLastMove(game);
             expect(game.history).toEqual([]);
+        });
+
+        it('should undo last move', function () {
+            var game = GameService.createNewGame(68);
             game.history = [1, 2, 3];
             GameService.undoLastMove(game);
             expect(game.history).toEqual([1, 2]);
         });
+
+        it('should undo first move', function () {
+            var game = GameService.createNewGame(6);
+            game.born = true;
+            game.history = [6];
+            GameService.undoLastMove(game);
+            expect(game.history).toEqual([]);
+            expect(game.born).toBe(false);
+        });
+
+        it('should throw an error when game is finished', function () {
+            var game = GameService.createNewGame(68);
+            game.finished = true;
+            GameService.undoLastMove(game);
+            expect(game.finished).toBe(false);
+        })
+
     });
 
     describe('$scope.showHistory', function () {

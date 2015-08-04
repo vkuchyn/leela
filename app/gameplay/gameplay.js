@@ -1,6 +1,6 @@
-var app = angular.module('leela.gameplay', ['leela.board']);
+var app = angular.module('leela.gameplay', ['ngStorage']);
 
-app.controller('GameplayController', function ($scope, board, GameService) {
+app.controller('GameplayController', function ($scope, $localStorage, board, GameService) {
     $scope.board = board;
     $scope.game = GameService.createNewGame(board.cosmic_cell);
 
@@ -53,11 +53,14 @@ app.controller('GameplayController', function ($scope, board, GameService) {
     $scope.undoLastMove = function () {
         GameService.undoLastMove($scope.game, board);
     }
+
 });
 
-app.factory('GameService', function () {
+app.factory('GameService', ['$localStorage', function ($localStorage) {
     var createNewGame = function (cosmic_cell) {
-        return {deposit: 0, born: false, finished: false, history: new Array(), current_position: cosmic_cell};
+        var newGame = {deposit: 0, born: false, finished: false, history: new Array(), current_position: cosmic_cell};
+        //$localStorage.game = newGame;
+        return newGame;
     }
 
     var undoLastMove = function (game, board) {
@@ -71,9 +74,11 @@ app.factory('GameService', function () {
             }
             game.current_position = checkRedirect(game.history[game.history.length - 1], board);
         }
-
     };
 
+    var saveGame = function (game) {
+        $localStorage.game = game;
+    };
 
     var checkRedirect = function (position, board) {
         var cell = board.cells[position];
@@ -93,5 +98,8 @@ app.factory('GameService', function () {
         }
     };
 
-    return {createNewGame: createNewGame, undoLastMove: undoLastMove, moveChipAndSaveHistory: moveChipAndSaveHistory};
-});
+    return {
+        createNewGame: createNewGame, undoLastMove: undoLastMove, moveChipAndSaveHistory: moveChipAndSaveHistory,
+        saveGame: saveGame
+    };
+}]);

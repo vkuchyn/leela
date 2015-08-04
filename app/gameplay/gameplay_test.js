@@ -2,11 +2,12 @@ describe('GameplayController', function () {
     beforeEach(module('leela.gameplay'));
     beforeEach(module('leela.board'));
 
-    var $controller, $scope, GameService;
+    var $controller, $scope, GameService, $localStorage;
 
-    beforeEach(inject(function (_$controller_, _GameService_) {
+    beforeEach(inject(function (_$controller_, _GameService_, _$localStorage_) {
         $controller = _$controller_;
         GameService = _GameService_;
+        $localStorage = _$localStorage_;
 
         $scope = {};
         board = {last_cell: 72, cosmic_cell: 68, cells: {}};
@@ -151,6 +152,7 @@ describe('GameplayController', function () {
         it('should set finished to false when game is finished', function () {
             var game = GameService.createNewGame(68);
             game.finished = true;
+            game.history = [1, 2];
             GameService.undoLastMove(game, $scope.board);
             expect(game.finished).toBe(false);
         });
@@ -170,6 +172,12 @@ describe('GameplayController', function () {
             expect(game.current_position).toBe(23);
         });
 
+        it('should save game to local storage', function(){
+            var game = GameService.createNewGame(5);
+            alert($localStorage.game);
+            GameService.saveGame(game);
+            expect($localStorage.game).toEqual(game);
+        });
     });
 
     describe('$scope.showHistory', function () {

@@ -88,8 +88,16 @@ describe('game service ', function () {
         expect($localStorage.game_archive).toEqual([game1, game2]);
     });
 
-    it('should load game from', function () {
+    it('should load game from storage', function () {
+        var game = {born: true, finished: false, deposit: 0, current_position: 6, history: []};
+        $localStorage.game = game;
+        var loadedGame = GameService.loadGame(board);
+        expect(loadedGame).toEqual(game);
+    });
 
+    it('should create new game if storage is empty', function () {
+        var loadedGame = GameService.loadGame(board);
+        expect(loadedGame.current_position).toBe(68);
     });
 
 });

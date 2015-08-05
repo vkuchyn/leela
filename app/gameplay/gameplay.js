@@ -72,6 +72,14 @@ app.factory('GameService', ['$localStorage', function ($localStorage) {
         return newGame;
     }
 
+    var loadGame = function (board) {
+        var game = $localStorage.game;
+        if (!game) {
+            game = createNewGame(board.cosmic_cell);
+        }
+        return game;
+    }
+
     var undoLastMove = function (game, board) {
         game.history.pop();
         if (game.history.length == 0) {
@@ -104,6 +112,7 @@ app.factory('GameService', ['$localStorage', function ($localStorage) {
     };
 
     return {
-        createNewGame: createNewGame, undoLastMove: undoLastMove, moveChipAndSaveHistory: moveChipAndSaveHistory
+        createNewGame: createNewGame, undoLastMove: undoLastMove, moveChipAndSaveHistory: moveChipAndSaveHistory,
+        loadGame: loadGame
     };
 }]);

@@ -23,6 +23,9 @@
             <button ng-show="$index == 0" ng-click="undoLastMove()">X</button>
         </ul>
         <pre>{{ showHistory() }}</pre>
+        <button ng-click="clearStorage()">Clear storage</button>
+        <pre>{{loadGameFromStarage()}}</pre>
+        <pre>{{loadGameArchiveFromStarage()}}</pre>
     </div>
 </div>
 </body>

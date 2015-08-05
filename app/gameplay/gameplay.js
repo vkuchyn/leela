@@ -2,7 +2,7 @@ var app = angular.module('leela.gameplay', ['ngStorage']);
 
 app.controller('GameplayController', function ($scope, $localStorage, board, GameService) {
     $scope.board = board;
-    $scope.game = GameService.createNewGame(board.cosmic_cell);
+    $scope.game = GameService.loadGame(board);
 
     $scope.moveChip = function (steps) {
         checkStepOutOfRange(steps);
@@ -53,6 +53,19 @@ app.controller('GameplayController', function ($scope, $localStorage, board, Gam
     $scope.undoLastMove = function () {
         GameService.undoLastMove($scope.game, board);
     }
+
+    $scope.loadGameFromStarage = function () {
+        return $localStorage.game;
+    };
+
+    $scope.loadGameArchiveFromStarage = function () {
+        return $localStorage.game_archive;
+    };
+
+    $scope.clearStorage = function () {
+        delete $localStorage.game_archive;
+        delete $localStorage.game;
+    };
 
 });
 

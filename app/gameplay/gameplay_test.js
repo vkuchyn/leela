@@ -12,6 +12,8 @@ describe('GameplayController', function () {
         $scope = {};
         board = {last_cell: 72, cosmic_cell: 68, cells: {}};
         $controller('GameplayController', {$scope: $scope, board: board});
+        $localStorage.game = undefined;
+        $localStorage.game_archive = undefined;
         $scope.game = GameService.createNewGame(6);
         $scope.game.born = true;
     }));
@@ -167,16 +169,10 @@ describe('GameplayController', function () {
         it('should undo current position to arrow on undo move', function () {
             var game = GameService.createNewGame(68);
             game.history = [6, 10, 24];
-            $scope.board.cells = {10: {goto:23} }
+            $scope.board.cells = {10: {goto: 23}}
             GameService.undoLastMove(game, $scope.board);
             expect(game.current_position).toBe(23);
         });
-        //
-        //it('should save game to local storage', function(){
-        //    var game = GameService.createNewGame(5);
-        //    GameService.saveGame(game);
-        //    expect($localStorage.game).toEqual(game);
-        //});
 
         it('should archive game after new game was created', function () {
             $localStorage.game = $scope.game;
@@ -184,6 +180,14 @@ describe('GameplayController', function () {
             expect($localStorage.game).toEqual(game);
             expect($localStorage.game_archive).toEqual([$scope.game]);
         });
+
+        it('should add another game to archive after new game was created', function () {
+            var game1 = $scope.game;
+            var game2 = GameService.createNewGame(24);
+            GameService.createNewGame(25);
+            expect($localStorage.game_archive).toEqual([game1, game2]);
+        });
+
     });
 
     describe('$scope.showHistory', function () {

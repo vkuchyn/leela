@@ -60,7 +60,14 @@ app.factory('GameService', ['$localStorage', function ($localStorage) {
     var createNewGame = function (cosmic_cell) {
         var newGame = {deposit: 0, born: false, finished: false, history: new Array(), current_position: cosmic_cell};
         var oldGame = $localStorage.game;
-        $localStorage.game_archive = [oldGame];
+        if ($localStorage.game_archive == undefined) {
+            if (oldGame) {
+                $localStorage.game_archive = [oldGame];
+            }
+        } else {
+            $localStorage.game_archive.push(oldGame);
+        }
+
         $localStorage.game = newGame;
         return newGame;
     }

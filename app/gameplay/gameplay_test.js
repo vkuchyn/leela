@@ -171,12 +171,18 @@ describe('GameplayController', function () {
             GameService.undoLastMove(game, $scope.board);
             expect(game.current_position).toBe(23);
         });
+        //
+        //it('should save game to local storage', function(){
+        //    var game = GameService.createNewGame(5);
+        //    GameService.saveGame(game);
+        //    expect($localStorage.game).toEqual(game);
+        //});
 
-        it('should save game to local storage', function(){
-            var game = GameService.createNewGame(5);
-            alert($localStorage.game);
-            GameService.saveGame(game);
+        it('should archive game after new game was created', function () {
+            $localStorage.game = $scope.game;
+            var game = GameService.createNewGame(68);
             expect($localStorage.game).toEqual(game);
+            expect($localStorage.game_archive).toEqual([$scope.game]);
         });
     });
 

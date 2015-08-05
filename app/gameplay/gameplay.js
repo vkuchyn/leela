@@ -59,7 +59,9 @@ app.controller('GameplayController', function ($scope, $localStorage, board, Gam
 app.factory('GameService', ['$localStorage', function ($localStorage) {
     var createNewGame = function (cosmic_cell) {
         var newGame = {deposit: 0, born: false, finished: false, history: new Array(), current_position: cosmic_cell};
-        //$localStorage.game = newGame;
+        var oldGame = $localStorage.game;
+        $localStorage.game_archive = [oldGame];
+        $localStorage.game = newGame;
         return newGame;
     }
 
@@ -74,10 +76,6 @@ app.factory('GameService', ['$localStorage', function ($localStorage) {
             }
             game.current_position = checkRedirect(game.history[game.history.length - 1], board);
         }
-    };
-
-    var saveGame = function (game) {
-        $localStorage.game = game;
     };
 
     var checkRedirect = function (position, board) {
@@ -99,7 +97,6 @@ app.factory('GameService', ['$localStorage', function ($localStorage) {
     };
 
     return {
-        createNewGame: createNewGame, undoLastMove: undoLastMove, moveChipAndSaveHistory: moveChipAndSaveHistory,
-        saveGame: saveGame
+        createNewGame: createNewGame, undoLastMove: undoLastMove, moveChipAndSaveHistory: moveChipAndSaveHistory
     };
 }]);

@@ -67,6 +67,17 @@ app.controller('GameplayController', function ($scope, $localStorage, board, Gam
         delete $localStorage.game;
     };
 
+    $scope.saveToFile = function () {
+        var data = {game: $localStorage.game, game_archive: $localStorage.game_archive};
+        var BB = window.Blob;
+        saveAs(
+            new BB(
+                [JSON.stringify(data)]
+                , {type: "text/plain;charset=" + document.characterSet}
+            )
+            , 'leela.json');
+    }
+
 });
 
 app.factory('GameService', ['$localStorage', function ($localStorage) {

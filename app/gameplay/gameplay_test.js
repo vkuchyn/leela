@@ -10,7 +10,7 @@ describe('GameplayController', function () {
         $scope = {};
         board = {last_cell: 72, cosmic_cell: 68, cells: {}};
         $controller('GameplayController', {$scope: $scope, board: board});
-        $scope.game = {born: true, finished: false, deposit: 0, current_position: 6, history: []};
+        $scope.game = {born: true, finished: false, deposit: 0, current_position: 6, history: [], dices_history: []};
     }));
 
     it('moves chip from the initial state to new position', function () {
@@ -133,6 +133,18 @@ describe('GameplayController', function () {
             $scope.moveChip(4);
             $scope.moveChip(1);
             expect($scope.showHistory()).toEqual([12, 9]);
+        });
+
+        it('should store all dices', function () {
+            $scope.board.cells = {"6": {"title": "moha"}};
+            $scope.game.born = false;
+            $scope.game.current_position = 68;
+
+            $scope.moveChip(4);
+            $scope.moveChip(1);            
+            $scope.moveChip(6);
+
+            expect($scope.game.dices_history).toEqual([4, 1, 6]);
         });
     })
 

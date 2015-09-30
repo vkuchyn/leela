@@ -7,6 +7,7 @@ app.controller('GameplayController', function ($scope, $localStorage, board, Gam
     $scope.moveChip = function (steps) {
         checkStepOutOfRange(steps);
         checkGameIsFinished($scope.game.finished);
+        addDiceToHistory($scope.game, steps);
         if (!$scope.game.born) {
             if (steps == 6) {
                 $scope.game.born = true;
@@ -29,6 +30,10 @@ app.controller('GameplayController', function ($scope, $localStorage, board, Gam
             }
         }
     };
+
+    var addDiceToHistory = function(game, step){
+        game.dices_history.push(step);
+    }
 
     var checkGameIsFinished = function (finished) {
         if (finished) {
@@ -82,7 +87,8 @@ app.controller('GameplayController', function ($scope, $localStorage, board, Gam
 
 app.factory('GameService', ['$localStorage', function ($localStorage) {
     var createNewGame = function (cosmic_cell) {
-        var newGame = {deposit: 0, born: false, finished: false, history: new Array(), current_position: cosmic_cell};
+        var newGame = {deposit: 0, born: false, finished: false, history: [], current_position: cosmic_cell,
+            dices_history: []};
         var oldGame = $localStorage.game;
         if ($localStorage.game_archive == undefined) {
             if (oldGame) {

@@ -23,6 +23,7 @@
             <li>{{index}}. {{board.cells[index].title}}</li>
             <button ng-show="$index == 0" ng-click="undoLastMove()">X</button>
         </ul>
+        <pre>{{ game.dices_history}}
         <!--<pre>{{ showHistory() }}</pre>-->
         <!--<button ng-click="clearStorage()">Clear storage</button>-->
         <button ng-click="saveToFile()">Save to file</button>
